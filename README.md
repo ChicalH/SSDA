@@ -5,7 +5,7 @@ This repository contains the official implementation of our paper **"Cross-Domai
 
 ## Overview
 Unsupervised cross-domain scene segmentation approach adapts the source model to the target domain, which utilizes two-stage strategies to minimize the inter-domain and intra-domain gap. However, the accumulation of errors in the previous stages affects the training of the subsequent stages. In this paper, a framework called statistical and structural domain adaptation (SSDA) is proposed to optimize inter-domain and intra-domain adaptation jointly. Firstly, the statistical inter-domain adaptation (StaIA) is proposed to model dynamic subdomains, which continuously adjust seed samples during the process of domain adaptation to mitigate error accumulation. The dynamic subdomains are modeled by exploring Bayesian uncertainty statistics and global balance statistics, which alleviate the imbalance problem in uncertainty estimation. StaIA encourages the model to transfer comprehensive and genuine knowledge through the seed loss for inter-domain adaptation. Secondly, the structural intra-domain adaptation (StrIA) is proposed to align the intra-domain gap among dynamic subdomains by the structural priors. Specifically, the StrIA models structural priors by truncated conditional random field (TruCRF) loss within the neighborhood, which constrains intra-domain semantic consistency to reduce the intra-domain gap. Experimental results demonstrate the effectiveness of the proposed cross-domain scene segmentation approaches on two commonly-used unsupervised domain adaptation benchmarks.
-[](resources/SSDA_Framework.png)
+![](resources/SSDA_Framework.png)
 
 ## Setup Environment
 - Python 3.8.5
