@@ -1,0 +1,90 @@
+{
+    "_base_": [
+        "../../_base_/default_runtime.py",
+        "../../_base_/models/deeplabv2red_r50-d8.py",
+        "../../_base_/datasets/uda_gtaHR_to_cityscapesHR_1024x1024.py",
+        "../../_base_/uda/dacs_a999_fdthings.py",
+        "../../_base_/schedules/adamw.py",
+        "../../_base_/schedules/poly10warm.py"
+    ],
+    "gpu_model": "NVIDIATITANRTX",
+    "n_gpus": 1,
+    "seed": 1,
+    "model": {
+        "pretrained": "open-mmlab://resnet101_v1c",
+        "backbone": {
+            "depth": 101
+        },
+        "decode_head": {
+            "single_scale_head": "DLV2Head",
+            "type": "HRDAHead",
+            "attention_classwise": true,
+            "hr_loss_weight": 0.1
+        },
+        "type": "HRDAEncoderDecoder",
+        "scales": [
+            1,
+            0.5
+        ],
+        "hr_crop_size": [
+            512,
+            512
+        ],
+        "feature_scale": 0.5,
+        "crop_coord_divisible": 8,
+        "hr_slide_inference": true
+    },
+    "data": {
+        "samples_per_gpu": 2,
+        "workers_per_gpu": 1,
+        "train": {
+            "target": {
+                "crop_pseudo_margins": [
+                    30,
+                    240,
+                    30,
+                    30
+                ]
+            },
+            "rare_class_sampling": {
+                "min_pixels": 3000,
+                "class_temp": 0.01,
+                "min_crop_ratio": 2.0
+            }
+        }
+    },
+    "optimizer_config": null,
+    "optimizer": {
+        "lr": 6e-05,
+        "paramwise_cfg": {
+            "custom_keys": {
+                "head": {
+                    "lr_mult": 10.0
+                }
+            }
+        }
+    },
+    "runner": {
+        "type": "IterBasedRunner",
+        "max_iters": 40000
+    },
+    "checkpoint_config": {
+        "by_epoch": false,
+        "interval": 40000,
+        "max_keep_ckpts": 1
+    },
+    "evaluation": {
+        "interval": 4000,
+        "metric": "mIoU"
+    },
+    "name": "231102_0630_gtaHR2csHR_1024x1024_dacs_a999_fdthings_rcs001-20_cpl2_hrda1-512-01_dlv2red_r101v1c_poly10warm_s1_ef85a",
+    "exp": 411,
+    "name_dataset": "gtaHR2cityscapesHR_1024x1024",
+    "name_architecture": "hrda1-512-0.1_dlv2red_r101v1c",
+    "name_encoder": "r101v1c",
+    "name_decoder": "hrda1-512-0.1_dlv2red",
+    "name_uda": "dacs_a999_fdthings_rcs0.01-2.0_cpl2",
+    "name_opt": "adamw_6e-05_pmTrue_poly10warm_1x2_40k",
+    "work_dir": "work_dirs/local-exp411/231102_0630_gtaHR2csHR_1024x1024_dacs_a999_fdthings_rcs001-20_cpl2_hrda1-512-01_dlv2red_r101v1c_poly10warm_s1_ef85a",
+    "git_rev": "unknown"
+}
