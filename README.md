@@ -74,6 +74,7 @@ If you find our work helpful, please cite our paper:
 
 ## Acknowledgements
 The code is based on the following open-source projects. We thank their authors for making the source code publicly available.
+
 [MMSegmentation](https://github.com/open-mmlab/mmsegmentation)  
 [HRDA](https://github.com/lhoyer/HRDA)  
 
